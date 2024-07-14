@@ -7,14 +7,16 @@ import Plan from "./components/pages/Plan";
 import Registration from "./components/pages/Registration";
 import Members from "./components/pages/Members";
 import Trainer from "./components/pages/Trainer";
+import UserSignup from "./components/Auth/UserSignup";
 
 
 function App() {
   return (
-   <div className="w-full h-full overflow-x-hidden">
+   <div className="w-[100vw] h-full overflow-x-hidden">
       <Routes>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/auth' element={<Auth/>}/>
+        <Route path='/auth/user' element={<UserSignup/>}/>
         <Route path='/dashboard/admin' element={<Admin/>}/>
         <Route path='/dashboard/plan' element={<Plan/>}/>
         <Route path='/dashboard/registration' element={<Registration/>}/>

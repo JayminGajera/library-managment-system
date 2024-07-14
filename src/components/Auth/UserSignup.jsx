@@ -13,24 +13,22 @@ import { Label } from "@/components/ui/label";
 import { Button } from "../ui/button";
 import { EyeIcon, EyeOff } from "lucide-react";
 import { BarLoader } from "react-spinners";
-import SignUpSvg from "../../assets/signup.svg"
 import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const UserSignup = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [invalidCred,setInvalidCred] = useState(null);
-
-  const navigate = useNavigate();
+  const [invalidCred, setInvalidCred] = useState(null);
 
   const formik = useFormik({
     initialValues: {
+      name: "",
       email: "",
       password: "",
-      libraryName:"",
+      mobileno: "",
     },
     validationSchema: Yup.object({
-      libraryName: Yup.string().required("Library Name is required"),
       email: Yup.string()
         .email("Invalid email format")
         .required("Email is required"),
@@ -41,6 +39,8 @@ const Signup = () => {
           "Password must include uppercase, lowercase, special symbol, and number"
         )
         .required("Password is required"),
+      name: Yup.string().required("Name is required"),
+      mobileno: Yup.string().required("Mobile no is required"),
     }),
     onSubmit: async (values) => {
       console.log("Form submitted", values);
@@ -76,41 +76,48 @@ const Signup = () => {
     },
   });
   return (
-    <div className="flex">
+    <div className="w-[100vw] h-[100vh] flex justify-center items-center">
       <Card className="w-full md:w-[30rem]">
         {loading && (
           <BarLoader className="mb-4" width={"100%"} color="#ffffff" />
         )}
         <CardHeader className="px-3 md:px-6">
-          <CardTitle>Sign up For Admin</CardTitle>
+          <CardTitle>Sign up For User</CardTitle>
           <CardDescription>
             Create your account and start journey with us.
           </CardDescription>
-          {
-          invalidCred && (
-            <div className="text-red-500">{invalidCred}</div>
-          )
-        }
+          {invalidCred && <div className="text-red-500">{invalidCred}</div>}
         </CardHeader>
         <CardContent className="px-3 md:px-6">
           <form onSubmit={formik.handleSubmit}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="gymname">Library Name</Label>
+                <Label htmlFor="gymname">Name</Label>
                 <Input
-                  id="libraryname"
+                  id="name"
                   type="text"
-                  {...formik.getFieldProps("libraryName")}
-                  placeholder="Enter Your Library Name"
+                  {...formik.getFieldProps("name")}
+                  placeholder="Enter Your Name"
                 />
-                {formik.touched.libraryName && formik.errors.libraryName ? (
+                {formik.touched.name && formik.errors.name ? (
+                  <p className="text-red-500 text-xs">{formik.errors.name}</p>
+                ) : null}
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="mobileno">Mobile no</Label>
+                <Input
+                  id="mobileno"
+                  type="text"
+                  {...formik.getFieldProps("mobileno")}
+                  placeholder="Enter Your Name"
+                />
+                {formik.touched.mobileno && formik.errors.mobileno ? (
                   <p className="text-red-500 text-xs">
-                    {formik.errors.libraryName}
+                    {formik.errors.mobileno}
                   </p>
                 ) : null}
               </div>
-             
-             
+
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -150,14 +157,22 @@ const Signup = () => {
             <Button type="submit" className="w-full mt-5">
               SignUp
             </Button>
-
-            <div onClick={() => navigate("/auth/user")} className="text-center cursor-pointer">Sign up for <span className="underline text-blue-700 mt-2">user</span></div>
+            <div onClick={() => navigate("/auth")} className="text-center cursor-pointer text-sm mt-2">
+              Sign up for{" "}
+              <span className="underline text-blue-700 mt-2 ">Admin</span>
+            </div>{" "}
+            <div
+              onClick={() => navigate("/auth")}
+              className="text-center cursor-pointer text-sm"
+            >
+              Already have an account{" "}
+              <span className="underline text-blue-700 mt-2 ">login</span>
+            </div>
           </form>
         </CardContent>
       </Card>
-    
     </div>
   );
 };
 
-export default Signup;
+export default UserSignup;
