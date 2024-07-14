@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "../Sidebar/sidebar";
+import { useSelector } from "react-redux";
 
 
 const Admin = () => {
