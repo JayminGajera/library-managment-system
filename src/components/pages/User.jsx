@@ -88,6 +88,7 @@ const User = () => {
         {filteredBook ? (
           <Card key={filteredBook.id} className="mb-4">
             <CardContent>
+              <Typography variant="h6">{filteredBook.image}</Typography>
               <Typography variant="h6">{filteredBook.title}</Typography>
               <Typography variant="body2">{filteredBook.author}</Typography>
               <Typography variant="body2">{filteredBook.description}</Typography>

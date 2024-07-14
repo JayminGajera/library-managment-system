@@ -29,15 +29,6 @@ export default function Dashboard() {
       ) : (
         <div>No role assigned</div>
       )}
-      )
-      } */}
-
-      
-        <Sidebar />
-          <Librarian/>
-          <ReturnBook/>
-      
-
     </div>
   );
 }
