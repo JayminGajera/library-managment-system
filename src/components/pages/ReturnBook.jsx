@@ -24,10 +24,10 @@ const ReturnBook = () => {
       // Close the dialog after successful scan
       setIsDialogOpen(false);
       console.log("issue book data ", bookData);
-      if(bookData?.data?.success){
+      if (bookData?.data?.success) {
         toast(bookData?.data?.message);
-      }else{
-        toast(bookData?.data?.message)
+      } else {
+        toast(bookData?.data?.message);
       }
     } catch (error) {
       console.log("Error while fetching book data");

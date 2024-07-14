@@ -8,6 +8,7 @@ import Registration from "./components/pages/Registration";
 import Members from "./components/pages/Members";
 import Trainer from "./components/pages/Trainer";
 import { useSelector } from "react-redux";
+import Inventory from "./components/pages/Inventory";
 
 
 
@@ -22,7 +23,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/auth' element={<Auth/>}/>
         <Route path='/dashboard/admin' element={<Admin/>}/>
-        <Route path='/dashboard/plan' element={<Plan/>}/>
+        <Route path='/dashboard/inventory' element={<Inventory/>}/>
         <Route path='/dashboard/registration' element={<Registration/>}/>
         <Route path='/dashboard/members' element={<Members/>}/>
         <Route path='/dashboard/trainers' element={<Trainer/>}/>

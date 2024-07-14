@@ -26,7 +26,7 @@ export default function Sidebar() {
     {
       icon: <MdOutlineWorkspacePremium />,
       name: "Inventory",
-      path: "/dashboard/plan"
+      path: "/dashboard/inventory"
     }
   ]
 

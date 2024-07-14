@@ -10,34 +10,26 @@ export default function Dashboard() {
   const { user } = useSelector((store) => store.user);
   return (
     <div className="flex">
-{/* 
-      {
-      user?.role == "librarian" ? (
+      {user?.role == "librarian" ? (
         <>
           <Sidebar />
-          <Librarian/>
+          <Librarian />
+          <ReturnBook />
         </>
       ) : user?.role == "user" ? (
         <>
           {" "}
           <Sidebar />
           <User />
-          
         </>
-      ) : user?.role == "admin" (
-        <>
-          <Sidebar />
-          <Admin />
-        </>
-      )
-      } */}
-
-      
-        <Sidebar />
-          <Librarian/>
-          <ReturnBook/>
-      
-
+      ) : (
+        
+          <>
+            <Sidebar />
+            <Admin />
+          </>
+        )
+      }
     </div>
   );
 }

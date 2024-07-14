@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
+
 const Librarian = () => {
   const { user } = useSelector((store) => store.user);
   const [books, setBooks] = useState([]);
@@ -65,7 +66,7 @@ const Librarian = () => {
 
   return (
     <div className="m-3 md:m-10 w-[82%] rounded-md">
-      <p className="font-bold text-xl">👋 Welcome {user?.name}</p>
+
 
       <Dialog open={isIssueModalOpen} onOpenChange={setIsIssueModalOpen}>
         <DialogTrigger asChild>
@@ -80,7 +81,7 @@ const Librarian = () => {
                   <select
                     id="isbn"
                     {...formik.getFieldProps("isbn")}
-                    className="border rounded p-1"
+                    className="border rounded p-1 w-full"
                   >
                     <option value="">Select ISBN</option>
                     {books?.map((book) => (
@@ -98,7 +99,7 @@ const Librarian = () => {
                   <select
                     id="email"
                     {...formik.getFieldProps("email")}
-                    className="border rounded p-1"
+                    className="border rounded p-1 w-full"
                   >
                     <option value="">Select Member</option>
                     {emails?.map((email) => (
