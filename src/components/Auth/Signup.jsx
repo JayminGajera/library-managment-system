@@ -165,6 +165,9 @@ const Signup = () => {
           </form>
         </CardContent>
       </Card>
+      <div className="hidden md:block w-[40rem]">
+        <img src="../src/assets/signup.svg" alt="login" className="w-[60%] mx-[20%]" />
+      </div>
     </div>
   );
 };

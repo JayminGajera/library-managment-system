@@ -20,6 +20,7 @@ import { useDispatch } from "react-redux";
 import LoginSvg from "../../assets/login.svg";
 import axios from "axios";
 
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -55,11 +56,11 @@ const Login = () => {
         if (response?.data?.data?.user?.role == "authenticated") {
           toast(response?.data?.message);
           dispatch(setUser(response?.data?.data?.user?.user_metadata));
-          localStorage.setItem("user",JSON.stringify(response?.data?.data?.user?.user_metadata));
+          localStorage.setItem("user", JSON.stringify(response?.data?.data?.user?.user_metadata));
           navigate("/dashboard");
         }
 
-        if(response?.error){
+        if (response?.error) {
           toast(response?.error);
           setInvalidCred(response?.error);
         }
@@ -129,6 +130,9 @@ const Login = () => {
           </form>
         </CardContent>
       </Card>
+      <div className="hidden md:block w-[40rem]">
+        <img src="../src/assets/login.svg" alt="login" className="w-[60%] mx-[20%]" />
+      </div>
     </div>
   );
 };

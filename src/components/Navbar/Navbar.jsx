@@ -31,10 +31,10 @@ const Navbar = () => {
   return (
     <div className="p-3 border-b ">
       <div className="flex items-center justify-between md:px-10 px-2">
-        <div className="font-bold text-xl md:text-2xl ">Library Managment System</div>
+        <div className="font-bold text-xl md:text-2xl ">BookWize</div>
         <div>
           {!user ? (
-            <div className="flex gap-x-2">
+            <div className="flex gap-x-2 hidden">
               <Button onClick={() => navigate("/auth")}>Login</Button>
             </div>
           ) : (

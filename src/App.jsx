@@ -21,7 +21,7 @@ function App() {
    <div className="w-[100vw] h-full overflow-x-hidden">
       <Routes>
         <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/auth' element={<Auth/>}/>
+        <Route path='/' element={<Auth/>}/>
         <Route path='/dashboard/admin' element={<Admin/>}/>
         <Route path='/dashboard/inventory' element={<Inventory/>}/>
         <Route path='/dashboard/registration' element={<Registration/>}/>
