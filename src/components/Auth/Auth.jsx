@@ -6,7 +6,7 @@ import Signup from "./Signup";
 
 const Auth = () => {
   return (
-    <div className="w-[100vw] h-[100vh] flex justify-center items-center md:translate-x-[40rem]">
+    <div className="w-[100vw] h-[100vh] flex justify-center items-center">
       <Tabs defaultValue="login" className="w-full md:px-10 px-2">
         <TabsList className="w-full md:w-[30rem] flex justify-center">
           <TabsTrigger value="login" className="w-[50%]">

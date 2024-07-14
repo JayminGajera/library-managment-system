@@ -76,7 +76,7 @@ const UserSignup = () => {
     },
   });
   return (
-    <div className="w-[100vw] h-[100vh] flex justify-center items-center">
+    <div className="w-[100vw] h-[100vh] flex items-center ml-10">
       <Card className="w-full md:w-[30rem]">
         {loading && (
           <BarLoader className="mb-4" width={"100%"} color="#ffffff" />
