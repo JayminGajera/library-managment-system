@@ -2,13 +2,16 @@ import React from "react";
 import Sidebar from "../Sidebar/sidebar";
 import { useSelector } from "react-redux";
 import Librarian from "./Librarian";
+import User from "./User";
+import Admin from "./Admin";
 
 export default function Dashboard() {
   const { user } = useSelector((store) => store.user);
   return (
     <div className="flex">
 
-      {user?.role == "librarian" ? (
+      {
+      user?.role == "librarian" ? (
         <>
           <Sidebar />
           <Librarian/>
@@ -17,18 +20,16 @@ export default function Dashboard() {
         <>
           {" "}
           <Sidebar />
-          <div className="m-3 md:m-10 w-[82%] rounded-md">
-            <p className="font-bold text-xl">👋 Welcome {user?.name}</p>
-          </div>
+          <User />
+          
         </>
-      ) : (
+      ) : user?.role == "admin" (
         <>
           <Sidebar />
-          <div className="m-3 md:m-10 w-[82%] rounded-md">
-            <p className="font-bold text-xl">👋 Welcome {user?.name}</p>
-          </div>
+          <Admin />
         </>
-      )}
+      )
+      }
 
     </div>
   );

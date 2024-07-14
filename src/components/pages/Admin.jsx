@@ -3,13 +3,10 @@ import Sidebar from "../Sidebar/sidebar";
 
 const Admin = () => {
     return(
-        <div className="flex ">
-            <Sidebar/>
-            <div className="m-3 md:m-10">
-                <h1>Admin page </h1>
-            </div>
-
-        </div>
+        
+        <div className="m-3 md:m-10 w-[82%] rounded-md">
+            <p className="font-bold text-xl">👋 Welcome {user?.name}</p>
+          </div>
     )
 }
 
