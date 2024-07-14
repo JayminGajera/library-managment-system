@@ -51,7 +51,7 @@ const Signup = () => {
       setLoading(true);
       try {
         const response = await axios.post(
-          "https://wrl1t22t-8055.inc1.devtunnels.ms/auth/register",
+          "http://192.168.116.226:8055/auth/register",
           values
         );
 
