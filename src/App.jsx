@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Auth from "./components/Auth/Auth";
 import Admin from "./components/pages/Admin";
@@ -7,10 +7,20 @@ import Plan from "./components/pages/Plan";
 import Registration from "./components/pages/Registration";
 import Members from "./components/pages/Members";
 import Trainer from "./components/pages/Trainer";
+import { useSelector } from "react-redux";
 
 
 
 function App() {
+
+  const {user} = useSelector((store) => store.user);
+  const navigate = useNavigate();
+
+  if(user) {
+    navigate("/dashboard");
+  }else{
+    navigate("/auth")
+  }
   return (
    <div className="w-[100vw] h-full overflow-x-hidden">
       <Routes>

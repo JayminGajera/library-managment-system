@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../Sidebar/sidebar";
 import { useSelector } from "react-redux";
+import Librarian from "./Librarian";
 
 export default function Dashboard() {
   const { user } = useSelector((store) => store.user);
@@ -10,9 +11,7 @@ export default function Dashboard() {
       {user?.role == "librarian" ? (
         <>
           <Sidebar />
-          <div className="m-3 md:m-10 w-[82%] rounded-md">
-            <p className="font-bold text-xl">👋 Welcome {user?.name}</p>
-          </div>
+          <Librarian/>
         </>
       ) : user?.role == "user" ? (
         <>

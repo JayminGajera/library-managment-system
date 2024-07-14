@@ -20,12 +20,12 @@ export default function Sidebar() {
     },
     {
       icon: <GrUserAdmin />,
-      name: "Admin Profile",
+      name: "Analytics",
       path: "/dashboard/admin",
     },
     {
       icon: <MdOutlineWorkspacePremium />,
-      name: "Plan",
+      name: "Inventory",
       path: "/dashboard/plan"
     }
   ]
@@ -33,26 +33,16 @@ export default function Sidebar() {
   const secondaryLinks = [
     {
       icon: <FaRegAddressCard />,
-      name: "Registration",
-      path: "/dashboard/registration"
-    },
-    {
-      icon: <BsPersonPlus />,
       name: "Members",
-      path: "/dashboard/members"
-    },
-    {
-      icon: <CgGym />,
-      name: "Trainers",
-      path: "/dashboard/trainers"
-    },
+      path: "/dashboard/registration"
+    }
   ]
  
   return (
     <div className="md:w-[18%] w-[4rem] h-dvh overflow-hidden pb-8 pt-5 border-r">
       <ul className="text-white flex flex-col border-b text-lg">
         {mainLinks.map(({ icon, name, path }) => (
-          <li key={name} className={`m-1 pl-6 py-2 rounded-md text-black ${location.pathname === path ? "bg-[#e3e7ed] text-white " : "hover:bg-[#e3e7ed] hover:text-black"}`}>
+          <li key={name} className={`m-1 pl-6 py-2 rounded-md text-black ${location.pathname === path ? "bg-[#e3e7ed] text-black " : "hover:bg-[#e3e7ed] hover:text-black"}`}>
             <Link to={path} className="flex items-center gap-2">
               <p className="text-xl pr-10 md:pr-3">{icon}</p>
               <span className="text-base tracking-wider">{name}</span>
@@ -62,7 +52,7 @@ export default function Sidebar() {
       </ul>
       <ul className="text-white flex flex-col border-b-1 text-lg">
         {secondaryLinks.map(({ icon, name, path }) => (
-          <li key={name} className={`m-1 pl-6 py-2 rounded-md text-black ${location.pathname === path ? "bg-[#e3e7ed] text-white" : "hover:bg-[#e3e7ed] hover:text-black"}`}>
+          <li key={name} className={`m-1 pl-6 py-2 rounded-md text-black ${location.pathname === path ? "bg-[#e3e7ed] text-black" : "hover:bg-[#e3e7ed] hover:text-black"}`}>
             <Link to={path} className="flex items-center gap-2">
               <p className="text-xl pr-10 md:pr-3">{icon}</p>
               <span className="text-base tracking-wider">{name}</span>
