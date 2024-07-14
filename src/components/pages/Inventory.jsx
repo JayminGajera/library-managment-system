@@ -27,16 +27,15 @@ const Inventory = () => {
   };
 
   return (
-    <div className="w-full px-10">
-      <div className="flex justify-between m-2">
-        <FaArrowLeft onClick={() => navigate(-1)} className="text-2xl" />
-        <input onChange={(e) => setSearch(e.target.value)} placeholder="serach book" className="border rounded-md p-2" type="text" />
-      </div>
+    <div className="w-full px-10 flex">
+    <Sidebar/>
+     
       <div className="text-black px-4">
+      <input onChange={(e) => setSearch(e.target.value)} placeholder="serach book" className="border rounded-md p-2 mt-2" type="text" />
         {books?.map((book, index) => (
           <div
             key={index}
-            className="border rounded-md p-4 flex flex-col-3 items-center mt-2"
+            className="border rounded-md p-4 flex flex-col-3 items-center mt-2 "
           >
             {book?.image ? (
               <img

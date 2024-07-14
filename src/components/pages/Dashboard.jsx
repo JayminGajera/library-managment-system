@@ -15,6 +15,7 @@ export default function Dashboard() {
         <>
           <Sidebar />
           <Librarian />
+          <ReturnBook/>
         </>
       ) : user?.role === "user" ? (
         <>
