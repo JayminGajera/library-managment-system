@@ -82,7 +82,7 @@ const Signup = () => {
           <BarLoader className="mb-4" width={"100%"} color="#ffffff" />
         )}
         <CardHeader className="px-3 md:px-6">
-          <CardTitle>Sign up For Admin</CardTitle>
+          <CardTitle>Sign up For Librarian</CardTitle>
           <CardDescription>
             Create your account and start journey with us.
           </CardDescription>

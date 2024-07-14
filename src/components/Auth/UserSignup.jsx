@@ -159,7 +159,7 @@ const UserSignup = () => {
             </Button>
             <div onClick={() => navigate("/auth")} className="text-center cursor-pointer text-sm mt-2">
               Sign up for{" "}
-              <span className="underline text-blue-700 mt-2 ">Admin</span>
+              <span className="underline text-blue-700 mt-2 ">librarian</span>
             </div>{" "}
             <div
               onClick={() => navigate("/auth")}
