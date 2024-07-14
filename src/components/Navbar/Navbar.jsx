@@ -48,7 +48,7 @@ const Navbar = () => {
               <DropdownMenuContent className="cursor-pointer">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuLabel className="text-[0.8rem] opacity-50">
-                  {user?.gymName}
+                  {user?.name}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuLabel>Profile</DropdownMenuLabel>
