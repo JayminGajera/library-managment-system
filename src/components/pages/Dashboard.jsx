@@ -6,6 +6,7 @@ export default function Dashboard() {
   const { user } = useSelector((store) => store.user);
   return (
     <div className="flex">
+
       {user?.role == "librarian" ? (
         <>
           <Sidebar />
@@ -29,6 +30,7 @@ export default function Dashboard() {
           </div>
         </>
       )}
+
     </div>
   );
 }
