@@ -18,12 +18,12 @@ import { useNavigate } from "react-router-dom";
 import { setUser } from "@/store/userSlice";
 import { useDispatch } from "react-redux";
 import LoginSvg from "../../assets/login.svg";
-
+import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [invalidCred,setInvalidCred] = useState(null);
+  const [invalidCred, setInvalidCred] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,28 +45,23 @@ const Login = () => {
       setLoading(true);
 
       try {
-        const response = await fetch("https://fitadmin.onrender.com/gym/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values), // JSON.stringify is required here
-        });
+        const response = await axios.post(
+          "https://wrl1t22t-8055.inc1.devtunnels.ms/auth/login",
+          values
+        );
 
-        const result = await response.json();
+        console.log("res ", response);
 
-        console.log("res ", result);
-
-        if (result?.data?.user?.role == "authenticated") {
-          toast(result?.message);
-          dispatch(setUser(result?.data?.user?.user_metadata));
-          localStorage.setItem("email",JSON.stringify(result?.data?.user?.user_metadata));
+        if (response?.data?.data?.user?.role == "authenticated") {
+          toast(response?.data?.message);
+          dispatch(setUser(response?.data?.data?.user?.user_metadata));
+          localStorage.setItem("user",JSON.stringify(response?.data?.data?.user?.user_metadata));
           navigate("/dashboard");
         }
 
-        if(result?.error){
-          toast(result?.error);
-          setInvalidCred(result?.error);
+        if(response?.error){
+          toast(response?.error);
+          setInvalidCred(response?.error);
         }
       } catch (error) {
         console.log("Error while login");
@@ -78,62 +73,62 @@ const Login = () => {
 
   return (
     <div className="flex">
-    <Card className="w-full md:w-[30rem]">
-      {loading && <BarLoader className="mb-4" width={"100%"} color="#ffffff" />}
-      <CardHeader className="px-3 md:px-6">
-        <CardTitle>Login</CardTitle>
-        <CardDescription>
-          Login and start management journey with us.
-        </CardDescription>
-        {
-          invalidCred && (
-            <div className="text-red-500">{invalidCred}</div>
-          )
-        }
-      </CardHeader>
-      <CardContent className="px-3 md:px-6">
-        <form onSubmit={formik.handleSubmit}>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                {...formik.getFieldProps("email")}
-                placeholder="Enter Your Email"
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <p className="text-red-500 text-xs">{formik.errors.email}</p>
-              ) : null}
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
+      <Card className="w-full md:w-[30rem]">
+        {loading && (
+          <BarLoader className="mb-4" width={"100%"} color="#000000" />
+        )}
+        <CardHeader className="px-3 md:px-6">
+          <CardTitle>Login</CardTitle>
+          <CardDescription>
+            Login and start management journey with us.
+          </CardDescription>
+          {invalidCred && <div className="text-red-500">{invalidCred}</div>}
+        </CardHeader>
+        <CardContent className="px-3 md:px-6">
+          <form onSubmit={formik.handleSubmit}>
+            <div className="grid w-full items-center gap-4">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="email">Email</Label>
                 <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  {...formik.getFieldProps("password")}
-                  placeholder="Enter Your Password"
+                  id="email"
+                  type="email"
+                  {...formik.getFieldProps("email")}
+                  placeholder="Enter Your Email"
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 top-2"
-                >
-                  {showPassword ? <EyeIcon /> : <EyeOff />}
-                </button>
+                {formik.touched.email && formik.errors.email ? (
+                  <p className="text-red-500 text-xs">{formik.errors.email}</p>
+                ) : null}
               </div>
-              {formik.touched.password && formik.errors.password ? (
-                <p className="text-red-500 text-xs">{formik.errors.password}</p>
-              ) : null}
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    {...formik.getFieldProps("password")}
+                    placeholder="Enter Your Password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2 top-2"
+                  >
+                    {showPassword ? <EyeIcon /> : <EyeOff />}
+                  </button>
+                </div>
+                {formik.touched.password && formik.errors.password ? (
+                  <p className="text-red-500 text-xs">
+                    {formik.errors.password}
+                  </p>
+                ) : null}
+              </div>
             </div>
-          </div>
-          <Button type="submit" className="w-full mt-5">
-            Login
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+            <Button type="submit" className="w-full mt-5">
+              Login
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 };
