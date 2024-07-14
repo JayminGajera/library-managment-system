@@ -8,28 +8,27 @@ import ReturnBook from "./ReturnBook";
 
 export default function Dashboard() {
   const { user } = useSelector((store) => store.user);
+
   return (
     <div className="flex">
       {user?.role == "librarian" ? (
         <>
           <Sidebar />
           <Librarian />
-          <ReturnBook />
         </>
-      ) : user?.role == "user" ? (
+      ) : user?.role === "user" ? (
         <>
-          {" "}
           <Sidebar />
           <User />
         </>
+      ) : user?.role == "admin" ? (
+        <>
+          <Sidebar />
+          <Admin />
+        </>
       ) : (
-        
-          <>
-            <Sidebar />
-            <Admin />
-          </>
-        )
-      }
+        <div>No role assigned</div>
+      )}
     </div>
   );
 }
