@@ -151,7 +151,7 @@ const Signup = () => {
               SignUp
             </Button>
 
-            <div onClick={() => navigate("/auth/user")} className="text-center cursor-pointer">Sign up for <span className="underline text-blue-700 mt-2">user</span></div>
+            <div onClick={() => navigate("/auth/user")} className="text-center cursor-pointer text-sm">Sign up for <span className="underline text-blue-700 mt-2">user</span></div>
           </form>
         </CardContent>
       </Card>
