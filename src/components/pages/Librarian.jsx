@@ -1,53 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import QRScanner from "./QRScanner";
-import { MdQrCodeScanner } from "react-icons/md";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import axios from "axios";
-import { Button } from "../ui/button";
 import { Label } from "@radix-ui/react-label";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Input } from "../ui/input";
 import { toast } from "sonner";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const Librarian = () => {
   const { user } = useSelector((store) => store.user);
-  const [loading, setLoading] = useState(false);
-  const [issueBookModalOpen, setIssueBookModalOpen] = useState(false);
+  const [books, setBooks] = useState([]);
+  const [emails, setEmails] = useState([]);
+  const [isIssueModalOpen, setIsIssueModalOpen] = useState(false);
 
-  const afterScan = async (isbn) => {
-    // Handle scan result
-    // try {
-    //   const bookData = await axios.get(
-    //     `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
-    //   );
-    //   let addBook;
-    //   {
-    //     bookData &&
-    //       (addBook = await axios.post(
-    //         `http://192.168.116.226:8055/books/addBook`,
-    //         {
-    //           isbn: bookData?.data?.items[0]?.volumeInfo?.industryIdentifiers[0]
-    //             .identifier,
-    //           title: bookData?.data?.items[0]?.volumeInfo?.title,
-    //           author: bookData?.data?.items[0]?.volumeInfo?.authors,
-    //         }
-    //       ));
-    //   }
+  useEffect(() => {
+    const fetchBooksAndEmails = async () => {
+      try {
+        const booksResponse = await axios.get("http://192.168.116.226:8055/books/getAvailableBooks");
+        const usersResponse = await axios.get("http://192.168.116.226:8055/user/userList");
 
-    //   console.log("book data ", bookData);
-    //   console.log("add book data ", addBook);
-    //   setBook()
-    // } catch (error) {
-    //   console.log("Error while book data fetch");
-    // }
-  };
+        if (booksResponse.data && usersResponse.data.data) {
+          setBooks(booksResponse.data);
+          setEmails(usersResponse.data.data);
+          console.log({books,emails});
+        }
+      } catch (error) {
+        console.error("Error fetching books and emails data", error);
+        toast.error("Error fetching books and emails data");
+      }
+    };
+
+    if (isIssueModalOpen) {
+      fetchBooksAndEmails();
+    }
+  }, [isIssueModalOpen]);
 
   const formik = useFormik({
     initialValues: {
@@ -57,32 +45,20 @@ const Librarian = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Invalid email format")
         .required("Email is required"),
-      isbn: Yup.string().required("Isbn is required"),
+      isbn: Yup.string().required("ISBN is required"),
       days: Yup.string().required("Days required"),
     }),
     onSubmit: async (values) => {
-      console.log("Form submitted", values);
-      setLoading(true);
-
       try {
-        const response = await axios.post(
-          "http://192.168.116.226:8055/books/issueBook",
-          values
-        );
+        console.log("values ",values);
+        const response = await axios.post("http://192.168.116.226:8055/books/issueBook", values);
 
-        console.log("res ", response);
-        if (response) {
-          toast(response?.data?.message);
-          setIssueBookModalOpen(false); // Close the modal on success
-        } else {
-          toast(response?.data?.message);
-        }
+        toast.success(response.data.message);
+        setIsIssueModalOpen(false); // Close Issue Book modal on success
       } catch (error) {
-        console.log("Error while issuing book");
-      } finally {
-        setLoading(false);
+        console.error("Error while issuing book", error);
+        toast.error("Error while issuing book");
       }
     },
   });
@@ -91,20 +67,9 @@ const Librarian = () => {
     <div className="m-3 md:m-10 w-[82%] rounded-md">
       <p className="font-bold text-xl">👋 Welcome {user?.name}</p>
 
-      <Dialog>
-        <DialogTrigger>
-          <MdQrCodeScanner className="text-4xl" />
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <QRScanner afterScan={afterScan} />
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={issueBookModalOpen} onOpenChange={setIssueBookModalOpen}>
+      <Dialog open={isIssueModalOpen} onOpenChange={setIsIssueModalOpen}>
         <DialogTrigger asChild>
-          <Button onClick={() => setIssueBookModalOpen(true)}>Issue Book</Button>
+          <Button className="flex">Issue Book</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -112,26 +77,40 @@ const Librarian = () => {
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="isbn">ISBN</Label>
-                  <Input
+                  <select
                     id="isbn"
-                    type="text"
                     {...formik.getFieldProps("isbn")}
-                    placeholder="Enter ISBN"
-                  />
+                    className="border rounded p-1"
+                  >
+                    <option value="">Select ISBN</option>
+                    {books?.map((book) => (
+                      <option key={book.isbn} value={book.isbn}>
+                        {book.title} - {book.isbn}
+                      </option>
+                    ))}
+                  </select>
                   {formik.touched.isbn && formik.errors.isbn ? (
                     <p className="text-red-500 text-xs">{formik.errors.isbn}</p>
                   ) : null}
                 </div>
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
+                  <Label htmlFor="email">Member</Label>
+                  <select
                     id="email"
-                    type="text"
                     {...formik.getFieldProps("email")}
-                    placeholder="Enter Your Email"
-                  />
+                    className="border rounded p-1"
+                  >
+                    <option value="">Select Member</option>
+                    {emails?.map((email) => (
+                      <option key={email} value={email?.email}>
+                        {email.userName}
+                      </option>
+                    ))}
+                  </select>
                   {formik.touched.email && formik.errors.email ? (
-                    <p className="text-red-500 text-xs">{formik.errors.email}</p>
+                    <p className="text-red-500 text-xs">
+                      {formik.errors.email}
+                    </p>
                   ) : null}
                 </div>
                 <div className="flex flex-col space-y-1.5">
@@ -140,7 +119,7 @@ const Librarian = () => {
                     id="days"
                     type="text"
                     {...formik.getFieldProps("days")}
-                    placeholder="Enter Your days"
+                    placeholder="Enter Number of Days"
                   />
                   {formik.touched.days && formik.errors.days ? (
                     <p className="text-red-500 text-xs">{formik.errors.days}</p>

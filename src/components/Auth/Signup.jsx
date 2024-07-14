@@ -57,15 +57,15 @@ const Signup = () => {
 
        
 
-        // if (result?.message) {
-        //   toast(result?.message);
-        //   navigate("/auth");
-        // }
+        if (response?.message) {
+          toast(response?.message);
+          navigate("/auth");
+        }
 
-        // if (result?.error) {
-        //   toast(result?.error);
-        //   setInvalidCred(result?.error);
-        // }
+        if (response?.error) {
+          toast(response?.error);
+          setInvalidCred(response?.error);
+        }
 
         console.log("res ", response);
       } catch (error) {
