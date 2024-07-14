@@ -4,23 +4,24 @@ import { useSelector } from "react-redux";
 import Librarian from "./Librarian";
 import User from "./User";
 import Admin from "./Admin";
+import ReturnBook from "./ReturnBook";
 
 export default function Dashboard() {
   const { user } = useSelector((store) => store.user);
 
   return (
     <div className="flex">
-      {user?.role === "librarian" ? (
+      {user?.role == "librarian" ? (
         <>
           <Sidebar />
           <Librarian />
         </>
       ) : user?.role === "user" ? (
         <>
-          {/* <Sidebar /> */}
+          <Sidebar />
           <User />
         </>
-      ) : user?.role === "admin" ? (
+      ) : user?.role == "admin" ? (
         <>
           <Sidebar />
           <Admin />
@@ -28,6 +29,15 @@ export default function Dashboard() {
       ) : (
         <div>No role assigned</div>
       )}
+      )
+      } */}
+
+      
+        <Sidebar />
+          <Librarian/>
+          <ReturnBook/>
+      
+
     </div>
   );
 }

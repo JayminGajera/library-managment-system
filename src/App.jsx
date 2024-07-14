@@ -16,11 +16,6 @@ function App() {
   const {user} = useSelector((store) => store.user);
   const navigate = useNavigate();
 
-  if(user) {
-    navigate("/dashboard");
-  }else{
-    navigate("/auth")
-  }
   return (
    <div className="w-[100vw] h-full overflow-x-hidden">
       <Routes>

@@ -46,7 +46,7 @@ const Login = () => {
 
       try {
         const response = await axios.post(
-          "https://wrl1t22t-8055.inc1.devtunnels.ms/auth/login",
+          "http://192.168.116.226:8055/auth/login",
           values
         );
 

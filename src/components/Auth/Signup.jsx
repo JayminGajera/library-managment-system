@@ -51,21 +51,21 @@ const Signup = () => {
       setLoading(true);
       try {
         const response = await axios.post(
-          "https://wrl1t22t-8055.inc1.devtunnels.ms/auth/register",
+          "http://192.168.116.226:8055/auth/register",
           values
         );
 
        
 
-        // if (result?.message) {
-        //   toast(result?.message);
-        //   navigate("/auth");
-        // }
+        if (response?.message) {
+          toast(response?.message);
+          navigate("/auth");
+        }
 
-        // if (result?.error) {
-        //   toast(result?.error);
-        //   setInvalidCred(result?.error);
-        // }
+        if (response?.error) {
+          toast(response?.error);
+          setInvalidCred(response?.error);
+        }
 
         console.log("res ", response);
       } catch (error) {
